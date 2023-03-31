@@ -56,7 +56,7 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
   let bookReviewed = books[isbn]
   let username = req.session.authorization["username"]
   bookReviewed["reviews"][username] = review
-  return res.status(201).send(JSON.stringify({message: "review sussfully added"}, null, 4));
+  return res.status(201).send(JSON.stringify({message: `The review for the book with ISBN ${isbn} has been sussfully added/updated`}, null, 4));
 });
 regd_users.delete("/auth/review/:isbn", (req, res)=>{
     console.log(req.session.authorization)
@@ -64,10 +64,8 @@ regd_users.delete("/auth/review/:isbn", (req, res)=>{
     let username = req.session.authorization.username
     let bookDel = books[isbn]
     let reviews = bookDel["reviews"]
-
     delete reviews[username]
-
-    return res.status(204).send(JSON.stringify({message: "review succfully deleted"}, null, 4));
+    return res.status(201).send(JSON.stringify({message: `review for ISBN ${isbn} by the user test has been deleted`}, null, 4));
 })
 
 module.exports.authenticated = regd_users;
